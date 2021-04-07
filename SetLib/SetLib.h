@@ -6,23 +6,31 @@ class Set
 {
 private:
 	std::vector<int> container;
+	size_t getPositionOfElement(int a) const;
 
 public:
 	Set() noexcept;
+	Set(std::vector<int> const& numbers) noexcept;
+	Set(Set const& set) noexcept;
+	
 	std::vector<int> getElements() const noexcept;
-	std::ostream& operator<<(Set const& s) const noexcept;
+
 	Set operator+(Set const& s) const noexcept;
 	Set operator-(Set const& s) const noexcept;
-	Set operator+=(Set const& s) noexcept;
-	Set operator-=(Set const& s) noexcept;
 	Set operator+(int a) const noexcept;
 	Set operator-(int a) const noexcept;
-	Set operator+=(int a) noexcept;
-	Set operator-=(int a) noexcept;
+	
+	void operator+=(Set const& s) noexcept;
+	void operator-=(Set const& s) noexcept;
+	void operator+=(int a) noexcept;
+	void operator-=(int a) noexcept;
+
 	Set operator*(Set const& s) const noexcept;
+	
 	bool isInSet(int a) const noexcept;
 	bool isEmpty(int a) const noexcept;
-	int count() const noexcept;
-
-
+	size_t count() const noexcept;
 };
+
+
+std::ostream& operator<<(std::ostream& stream, Set const& s);

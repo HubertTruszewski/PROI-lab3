@@ -1,75 +1,162 @@
 #include "SetLib.h"
 
+size_t Set::getPositionOfElement(int a) const
+{
+	for (size_t i = 0; i < this->container.size(); i++)
+	{
+		if (a == this->container[i]) return i;
+	}
+	return 0;
+}
+
 Set::Set() noexcept
 {
 }
 
-std::vector<int> Set::getElements() const noexcept
+Set::Set(std::vector<int> const& numbers) noexcept
 {
-	// TODO: insert return statement here
+	for (auto i : numbers)
+	{
+		if (!this->isInSet(i)) this->container.push_back(i);
+	}
 }
 
-std::ostream& Set::operator<<(Set const& s) const noexcept
+Set::Set(Set const& set) noexcept
 {
-	// TODO: insert return statement here
+	this->container = set.getElements();
+}
+
+std::vector<int> Set::getElements() const noexcept
+{
+	return this->container;
 }
 
 Set Set::operator+(Set const& s) const noexcept
 {
-	// TODO: insert return statement here
+	Set resultSet;
+	for (auto i : this->container)
+	{
+		//if (!resultSet.isInSet(i)) resultSet += i;
+		resultSet += i;
+	}
+	for (auto i : s.getElements())
+	{
+		//if (!resultSet.isInSet(i)) resultSet += i;
+		resultSet += i;
+	}
+	return resultSet;
 }
 
 Set Set::operator-(Set const& s) const noexcept
 {
-	// TODO: insert return statement here
-}
-
-Set Set::operator+=(Set const& s) noexcept
-{
-	// TODO: insert return statement here
-}
-
-Set Set::operator-=(Set const& s) noexcept
-{
-	// TODO: insert return statement here
+	Set resultSet;
+	for (auto i : this->container)
+	{
+		if (!s.isInSet(i)) resultSet += i;
+	}
+	return resultSet;
 }
 
 Set Set::operator+(int a) const noexcept
 {
-	// TODO: insert return statement here
+	Set resultSet(*this);
+	resultSet += a;
+	return resultSet;
 }
 
 Set Set::operator-(int a) const noexcept
 {
-	// TODO: insert return statement here
+	Set resultSet(*this);
+	resultSet -= a;
+	return resultSet;
 }
 
-Set Set::operator+=(int a) noexcept
+
+void Set::operator+=(Set const& s) noexcept
 {
-	// TODO: insert return statement here
+	for (auto i : s.getElements())
+	{
+		if (!s.isInSet(i)) this->container.push_back(i);
+	}
 }
 
-Set Set::operator-=(int a) noexcept
+void Set::operator-=(Set const& s) noexcept
 {
-	// TODO: insert return statement here
+	for (auto i : s.getElements())
+	{
+		if (this->isInSet(i)) this->container.erase(this->container.begin() + this->getPositionOfElement(i));
+	}
 }
+
+
+void Set::operator+=(int a) noexcept
+{
+	if (!this->isInSet(a))
+	{
+		this->container.push_back(a);
+	}
+}
+
+
+void Set::operator-=(int a) noexcept
+{
+	if (this->isInSet(a))
+	{
+		size_t elementPosition = this->getPositionOfElement(a);
+		this->container.erase(this->container.begin() + elementPosition);
+	}
+}
+
 
 Set Set::operator*(Set const& s) const noexcept
 {
-	// TODO: insert return statement here
+	Set resultSet;
+	for (auto i : this->container)
+	{
+		if (s.isInSet(i) && !resultSet.isInSet(i)) resultSet += i;
+	}
+
+	return resultSet;
 }
 
 bool Set::isInSet(int a) const noexcept
 {
-	// TODO: insert return statement here
+	bool inSet = false;
+	for (auto i : this->container)
+	{
+		if (i == a)
+		{
+			inSet = true;
+			break;
+		}
+	}
+	return inSet;
 }
 
 bool Set::isEmpty(int a) const noexcept
 {
-	// TODO: insert return statement here
+	return this->container.size() == 0;
 }
 
-int Set::count() const noexcept
+size_t Set::count() const noexcept
 {
-	// TODO: insert return statement here
+	return this->container.size();
+}
+
+std::ostream& operator<<(std::ostream& stream, Set const& s)
+{
+	std::vector<int> elements = s.getElements();
+	int last_element = elements.back();
+	std::cout << "{";
+	for (auto i : elements)
+	{
+		std::cout << i;
+		if (i != last_element)
+		{
+			std::cout << ", ";
+		}
+	}
+	std::cout << "}" << std::endl;
+
+	return stream;
 }
