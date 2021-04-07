@@ -106,7 +106,6 @@ void Set::operator-=(int a) noexcept
 	}
 }
 
-
 Set Set::operator*(Set const& s) const noexcept
 {
 	Set resultSet;
@@ -144,18 +143,22 @@ size_t Set::count() const noexcept
 
 std::ostream& operator<<(std::ostream& stream, Set const& s)
 {
-	std::vector<int> elements = s.getElements();
-	int last_element = elements.back();
+	
 	std::cout << "{";
-	for (auto i : elements)
+	if (!s.isEmpty())
 	{
-		std::cout << i;
-		if (i != last_element)
+		std::vector<int> elements = s.getElements();
+		int last_element = elements.back();
+		for (auto i : elements)
 		{
-			std::cout << ", ";
+			std::cout << i;
+			if (i != last_element)
+			{
+				std::cout << ", ";
+			}
 		}
-	}
-	std::cout << "}" << std::endl;
+		std::cout << "}" << std::endl;
 
-	return stream;
+		return stream;
+	}
 }
