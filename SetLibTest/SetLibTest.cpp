@@ -1,6 +1,7 @@
 #include "CppUnitTest.h"
 #include "../SetLib/SetLib.h"
 #include <iostream>
+#include <stdexcept>
 #include <sstream>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -440,7 +441,7 @@ namespace SetLibTest
 				Assert::IsTrue(1);
 			}
 			else {
-				Assert::Fail;
+				Assert::Fail();
 			}
 		}
 		TEST_METHOD(TestInsertionOperatorNotEmpty)
@@ -450,6 +451,35 @@ namespace SetLibTest
 			std::stringstream out;
 			out << set1;
 			Assert::AreEqual(out.str().length(), (size_t)10);
+		}
+		TEST_METHOD(TestComplementSetNormal)
+		{
+			std::vector<int> numbers1 = { 1, 2, 3, 4 };
+			Set<int> set1(numbers1);
+			std::vector<int> numbers2 = { 1, 2, 3, 4, 6, 7, 8 };
+			Set<int> set2(numbers2);
+			Set<int> resultSet = set1.complement(set2);
+			Assert::AreEqual(resultSet.count(), (size_t)3);
+			Assert::IsTrue(resultSet.isInSet(6));
+			Assert::IsTrue(resultSet.isInSet(7));
+			Assert::IsTrue(resultSet.isInSet(8));
+			Assert::IsFalse(resultSet.isEmpty());
+		}
+		TEST_METHOD(TestComplementNotSuperset)
+		{
+			std::vector<int> numbers1 = { 1, 2, 3, 4 };
+			Set<int> set1(numbers1);
+			std::vector<int> numbers2 = { 1, 2, 3, 4, 6, 7, 8 };
+			Set<int> set2(numbers2);
+			try
+			{
+				set2.complement(set1);
+				Assert::Fail();
+			}
+			catch (...)
+			{
+				Assert::IsTrue(true);
+			}
 		}
 	};
 }

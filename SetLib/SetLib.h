@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <stdexcept>
+
 
 template < class T >
 class Set
@@ -116,6 +118,20 @@ public:
 
 		return resultSet;
 	}
+
+	Set<T> complement(Set<T> const& s) const
+	{
+		Set<T> resultSet;
+		for (auto i : this->container)
+		{
+			if(!s.isInSet(i)) throw std::domain_error("Given set is not superset");
+		}
+		for (auto i : s.getElements())
+		{
+			if (!this->isInSet(i)) resultSet += i;
+		}
+		return resultSet;
+	}
 	
 	bool isInSet(T a) const noexcept
 	{
@@ -160,4 +176,23 @@ std::ostream& operator<<(std::ostream& stream, Set<T> const& s)
 	}
 	stream << "}";
 	return stream;
+}
+
+namespace std
+{
+
+	template<class T> struct hash<Set<T>>
+	{
+		size_t operator()(Set<T> const& s) const noexcept
+		{
+			int sum = 0;
+			for (auto i : s.getElements())
+			{
+				sum += i;
+			}
+			size_t sum_hash = std::hash<T>{}(sum);
+			size_t count_hash = std::hash<T>{}(s.count());
+			return sum_hash ^ count_hash;
+		}
+	};
 }

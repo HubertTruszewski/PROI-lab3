@@ -3,13 +3,13 @@
 
 int main()
 {
-	Set<std::string> set1;
-	Set<std::string> set2;
-	set2 += "Hello";
-	set2 += "world";
-	set2 += "proi";
+	std::vector<int> numbers1 = { 1, 2, 3, 4 };
+	Set<int> set1(numbers1);
+	std::vector<int> numbers2 = { 1, 2, 3, 4, 6, 7, 8 };
+	Set<int> set2(numbers2);
 
-	std::cout << set2;
+	std::cout << std::hash<Set<int>>{}(set1);
+
 
 }
 
