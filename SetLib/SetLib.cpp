@@ -97,7 +97,6 @@ void Set::operator+=(int a) noexcept
 	}
 }
 
-
 void Set::operator-=(int a) noexcept
 {
 	if (this->isInSet(a))
@@ -133,9 +132,9 @@ bool Set::isInSet(int a) const noexcept
 	return inSet;
 }
 
-bool Set::isEmpty(int a) const noexcept
+bool Set::isEmpty() const noexcept
 {
-	return this->container.size() == 0;
+	return this->container.empty();
 }
 
 size_t Set::count() const noexcept

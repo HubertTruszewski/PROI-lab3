@@ -28,7 +28,8 @@ public:
 	Set operator*(Set const& s) const noexcept;
 	
 	bool isInSet(int a) const noexcept;
-	bool isEmpty(int a) const noexcept;
+	bool isEmpty() const noexcept;
+	
 	size_t count() const noexcept;
 };
 
