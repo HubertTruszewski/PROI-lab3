@@ -76,7 +76,7 @@ void Set::operator+=(Set const& s) noexcept
 {
 	for (auto i : s.getElements())
 	{
-		if (!s.isInSet(i)) this->container.push_back(i);
+		if (!this->isInSet(i)) this->container.push_back(i);
 	}
 }
 
