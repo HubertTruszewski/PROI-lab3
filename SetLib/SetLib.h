@@ -2,36 +2,162 @@
 #include <iostream>
 #include <vector>
 
+template < class T >
 class Set
 {
 private:
-	std::vector<int> container;
-	size_t getPositionOfElement(int a) const;
+	std::vector<T> container;
+	size_t getPositionOfElement(T a) const
+	{
+
+		for (size_t i = 0; i < this->container.size(); i++)
+		{
+			if (a == this->container[i]) return i;
+		}
+		return 0;
+	}
 
 public:
-	Set() noexcept;
-	Set(std::vector<int> const& numbers) noexcept;
-	Set(Set const& set) noexcept;
-	
-	std::vector<int> getElements() const noexcept;
+	Set<T>() noexcept
+	{
 
-	Set operator+(Set const& s) const noexcept;
-	Set operator-(Set const& s) const noexcept;
-	Set operator+(int a) const noexcept;
-	Set operator-(int a) const noexcept;
+	}
+	Set<T>(std::vector<T> const& numbers) noexcept
+	{
+		for (auto i : numbers)
+		{
+			if (!this->isInSet(i)) this->container.push_back(i);
+		}
+	}
+	Set<T>(Set const& set) noexcept
+	{
+		this->container = set.getElements();
+	}
 	
-	void operator+=(Set const& s) noexcept;
-	void operator-=(Set const& s) noexcept;
-	void operator+=(int a) noexcept;
-	void operator-=(int a) noexcept;
+	std::vector<T> getElements() const noexcept
+	{
+		return this->container;
+	}
 
-	Set operator*(Set const& s) const noexcept;
+	Set<T> operator+(Set<T> const& s) const noexcept
+	{
+		Set<T> resultSet;
+		for (auto i : this->container)
+		{
+			//if (!resultSet.isInSet(i)) resultSet += i;
+			resultSet += i;
+		}
+		for (auto i : s.getElements())
+		{
+			//if (!resultSet.isInSet(i)) resultSet += i;
+			resultSet += i;
+		}
+		return resultSet;
+	}
+	Set<T> operator-(Set<T> const& s) const noexcept
+	{
+		Set<T> resultSet;
+		for (auto i : this->container)
+		{
+			if (!s.isInSet(i)) resultSet += i;
+		}
+		return resultSet;
+	}
+	Set<T> operator+(T a) const noexcept
+	{
+		Set<T> resultSet(*this);
+		resultSet += a;
+		return resultSet;
+	}
+	Set<T> operator-(T a) const noexcept
+	{
+		Set<T> resultSet(*this);
+		resultSet -= a;
+		return resultSet;
+	}
 	
-	bool isInSet(int a) const noexcept;
-	bool isEmpty() const noexcept;
+	void operator+=(Set<T> const& s) noexcept
+	{
+		for (auto i : s.getElements())
+		{
+			if (!this->isInSet(i)) this->container.push_back(i);
+		}
+	}
+	void operator-=(Set<T> const& s) noexcept
+	{
+		for (auto i : s.getElements())
+		{
+			if (this->isInSet(i)) this->container.erase(this->container.begin() + this->getPositionOfElement(i));
+		}
+	}
+	void operator+=(T a) noexcept
+	{
+		if (!this->isInSet(a))
+		{
+			this->container.push_back(a);
+		}
+	}
+	void operator-=(T a) noexcept
+	{
+		if (this->isInSet(a))
+		{
+			size_t elementPosition = this->getPositionOfElement(a);
+			this->container.erase(this->container.begin() + elementPosition);
+		}
+	}
+
+	Set<T> operator*(Set<T> const& s) const noexcept
+	{
+		Set resultSet;
+		for (auto i : this->container)
+		{
+			if (s.isInSet(i) && !resultSet.isInSet(i)) resultSet += i;
+		}
+
+		return resultSet;
+	}
 	
-	size_t count() const noexcept;
+	bool isInSet(T a) const noexcept
+	{
+		bool inSet = false;
+		for (auto i : this->container)
+		{
+			if (i == a)
+			{
+				inSet = true;
+				break;
+			}
+		}
+		return inSet;
+	}
+	bool isEmpty() const noexcept
+	{
+		return this->container.empty();
+	}
+	
+	size_t count() const noexcept
+	{
+		return this->container.size();
+	}
 };
 
-
-std::ostream& operator<<(std::ostream& stream, Set const& s);
+template< class T >
+std::ostream& operator<<(std::ostream& stream, Set<T> const& s)
+{
+	stream << "{";
+	if (!s.isEmpty())
+	{
+		std::vector<T> elements = s.getElements();
+		T last_element = elements.back();
+		for (auto i : elements)
+		{
+			stream << i;
+			if (i != last_element)
+			{
+				stream << ", ";
+			}
+		}
+	}
+	stream << "}";
+	return stream;
+}

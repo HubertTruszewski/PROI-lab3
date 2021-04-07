@@ -14,7 +14,7 @@ namespace SetLibTest
 		
 		TEST_METHOD(TestDefaultConstructor)
 		{
-			Set testSet;
+			Set<int>testSet;
 			Assert::AreEqual(testSet.count(), (size_t)0);
 			Assert::IsTrue(testSet.isEmpty());
 			Assert::IsFalse(testSet.isInSet(5));
@@ -23,7 +23,7 @@ namespace SetLibTest
 		TEST_METHOD(TestVectorArgumentConstructor1)
 		{
 			std::vector<int> numbers = { 1, 2, 3, 4 };
-			Set testSet(numbers);
+			Set<int>testSet(numbers);
 			Assert::AreEqual(testSet.count(), (size_t)4);
 			Assert::IsTrue(testSet.isInSet(1));
 			Assert::IsTrue(testSet.isInSet(4));
@@ -33,7 +33,7 @@ namespace SetLibTest
 		TEST_METHOD(TestVectorArgumentConstructor2)
 		{
 			std::vector<int> numbers = { 1, 2, 3, 4, 3, 6, 2, 5, 4, 9, 1 };
-			Set testSet(numbers);
+			Set<int>testSet(numbers);
 			Assert::AreEqual(testSet.count(), (size_t)7);
 			Assert::IsTrue(testSet.isInSet(1));
 			Assert::IsTrue(testSet.isInSet(4));
@@ -44,7 +44,7 @@ namespace SetLibTest
 		TEST_METHOD(TestVectorArgumentConstructor3)
 		{
 			std::vector<int> numbers = {};
-			Set testSet(numbers);
+			Set<int>testSet(numbers);
 			Assert::AreEqual(testSet.count(), (size_t)0);
 			Assert::IsTrue(testSet.isEmpty());
 			Assert::IsFalse(testSet.isInSet(5));
@@ -52,8 +52,8 @@ namespace SetLibTest
 		}
 		TEST_METHOD(TestSetArgumentConstructor1)
 		{
-			Set emptySet;
-			Set testSet(emptySet);
+			Set<int>emptySet;
+			Set<int>testSet(emptySet);
 			Assert::AreEqual(testSet.count(), (size_t)0);
 			Assert::IsTrue(testSet.isEmpty());
 			Assert::IsFalse(testSet.isInSet(5));
@@ -62,8 +62,8 @@ namespace SetLibTest
 		TEST_METHOD(TestSetArgumentConstructor2)
 		{
 			std::vector<int> numbers = { 1, 2 , 3, 4 };
-			Set sourceSet(numbers);
-			Set testSet(sourceSet);
+			Set<int>sourceSet(numbers);
+			Set<int>testSet(sourceSet);
 			Assert::AreEqual(testSet.count(), (size_t)4);
 			Assert::IsTrue(testSet.isInSet(2));
 			Assert::IsTrue(testSet.isInSet(4));
@@ -73,7 +73,7 @@ namespace SetLibTest
 		TEST_METHOD(TestGetElementsEmpty)
 		{
 			std::vector<int> numbers = {};
-			Set testSet(numbers);
+			Set<int>testSet(numbers);
 			auto result = testSet.getElements();
 			Assert::AreEqual(result.size(), (size_t)0);
 			Assert::IsTrue(result.empty());
@@ -81,7 +81,7 @@ namespace SetLibTest
 		TEST_METHOD(TestGetElementsNormal)
 		{
 			std::vector<int> numbers = {1, 2, 3, 4, 5};
-			Set testSet(numbers);
+			Set<int>testSet(numbers);
 			auto result = testSet.getElements();
 			Assert::AreEqual(result.size(), (size_t)5);
 			Assert::IsFalse(result.empty());
@@ -89,7 +89,7 @@ namespace SetLibTest
 		TEST_METHOD(TestGetElementsNotUniqueNums)
 		{
 			std::vector<int> numbers = {2, 4, 7, 2, 4, 0, 6, 4, 7};
-			Set testSet(numbers);
+			Set<int>testSet(numbers);
 			auto result = testSet.getElements();
 			Assert::AreEqual(result.size(), (size_t)5);
 			Assert::IsFalse(result.empty());
@@ -97,10 +97,10 @@ namespace SetLibTest
 		TEST_METHOD(TestOperatorPlusWithSetUniqueNums)
 		{
 			std::vector<int> numbers1 = { 1, 2, 3, 4, 5 };
-			Set set1(numbers1);
+			Set<int>set1(numbers1);
 			std::vector<int> numbers2 = { 6, 7, 9 };
-			Set set2(numbers2);
-			Set set3 = set1 + set2;
+			Set<int>set2(numbers2);
+			Set<int>set3 = set1 + set2;
 			Assert::AreEqual(set3.count(), (size_t)8);
 			Assert::IsTrue(set3.isInSet(3));
 			Assert::IsTrue(set3.isInSet(7));
@@ -110,10 +110,10 @@ namespace SetLibTest
 		TEST_METHOD(TestOperatorPlusWithSetNotUniqueNums)
 		{
 			std::vector<int> numbers1 = { 1, 2, 3, 4, 5, 8, 9 };
-			Set set1(numbers1);
+			Set<int>set1(numbers1);
 			std::vector<int> numbers2 = { 5, 6, 7, 9 };
-			Set set2(numbers2);
-			Set set3 = set1 + set2;
+			Set<int>set2(numbers2);
+			Set<int>set3 = set1 + set2;
 			Assert::AreEqual(set3.count(), (size_t)9);
 			Assert::IsTrue(set3.isInSet(3));
 			Assert::IsTrue(set3.isInSet(7));
@@ -124,9 +124,9 @@ namespace SetLibTest
 		TEST_METHOD(TestOperatorPlusWithSetEmpty)
 		{
 			std::vector<int> numbers = { 1, 2, 3, 4, 5, 8, 9 };
-			Set set1(numbers);
-			Set set2;
-			Set set3 = set1 + set2;
+			Set<int>set1(numbers);
+			Set<int>set2;
+			Set<int>set3 = set1 + set2;
 			Assert::AreEqual(set3.count(), (size_t)7);
 			Assert::IsTrue(set3.isInSet(3));
 			Assert::IsFalse(set3.isInSet(7));
@@ -137,10 +137,10 @@ namespace SetLibTest
 		TEST_METHOD(TestOperatorMinusWithSetNormal)
 		{
 			std::vector<int> numbers1 = { 1, 2, 3, 4, 5, 8, 9 };
-			Set set1(numbers1);
+			Set<int>set1(numbers1);
 			std::vector<int> numbers2 = { 3, 4, 9 };
-			Set set2(numbers2);
-			Set set3 = set1 - set2;
+			Set<int>set2(numbers2);
+			Set<int>set3 = set1 - set2;
 			Assert::AreEqual(set3.count(), (size_t)4);
 			Assert::IsTrue(set3.isInSet(5));
 			Assert::IsFalse(set3.isInSet(7));
@@ -151,10 +151,10 @@ namespace SetLibTest
 		TEST_METHOD(TestOperatorMinusWithSetNoCommon)
 		{
 			std::vector<int> numbers1 = { 1, 2, 3, 4, 5, 8, 9 };
-			Set set1(numbers1);
+			Set<int>set1(numbers1);
 			std::vector<int> numbers2 = { 10, 13 };
-			Set set2(numbers2);
-			Set set3 = set1 - set2;
+			Set<int>set2(numbers2);
+			Set<int>set3 = set1 - set2;
 			Assert::AreEqual(set3.count(), (size_t)7);
 			Assert::IsFalse(set3.isEmpty());
 			Assert::IsTrue(set3.isInSet(9));
@@ -163,9 +163,9 @@ namespace SetLibTest
 		TEST_METHOD(TestOperatorMinusWithEmptySet)
 		{
 			std::vector<int> numbers1 = { 1, 2, 3, 4, 5, 8, 9 };
-			Set set1(numbers1);
-			Set set2;
-			Set set3 = set1 - set2;
+			Set<int>set1(numbers1);
+			Set<int>set2;
+			Set<int>set3 = set1 - set2;
 			Assert::AreEqual(set3.count(), (size_t)7);
 			Assert::IsFalse(set3.isEmpty());
 			Assert::IsTrue(set3.isInSet(3));
@@ -175,8 +175,8 @@ namespace SetLibTest
 		TEST_METHOD(TestOperatorPlusWithInteger)
 		{
 			std::vector<int> numbers1 = { 1, 2, 3, 4, 5, 8, 9 };
-			Set set1(numbers1);
-			Set set2 = set1 + 6;
+			Set<int>set1(numbers1);
+			Set<int>set2 = set1 + 6;
 			Assert::AreEqual(set2.count(), (size_t)8);
 			Assert::IsFalse(set2.isEmpty());
 			Assert::IsTrue(set2.isInSet(5));
@@ -186,8 +186,8 @@ namespace SetLibTest
 		TEST_METHOD(TestOperatorPlusWithIntegerInSet)
 		{
 			std::vector<int> numbers1 = { 1, 2, 3, 4, 5, 8, 9 };
-			Set set1(numbers1);
-			Set set2 = set1 + 9;
+			Set<int>set1(numbers1);
+			Set<int>set2 = set1 + 9;
 			Assert::AreEqual(set2.count(), (size_t)7);
 			Assert::IsFalse(set2.isEmpty());
 			Assert::IsTrue(set2.isInSet(5));
@@ -197,8 +197,8 @@ namespace SetLibTest
 		TEST_METHOD(TestOperatorMinusWithIntegerInSet)
 		{
 			std::vector<int> numbers1 = { 1, 2, 3, 4, 5, 8, 9 };
-			Set set1(numbers1);
-			Set set2 = set1 - 5;
+			Set<int>set1(numbers1);
+			Set<int>set2 = set1 - 5;
 			Assert::AreEqual(set2.count(), (size_t)6);
 			Assert::IsFalse(set2.isEmpty());
 			Assert::IsTrue(set2.isInSet(8));
@@ -207,8 +207,8 @@ namespace SetLibTest
 		TEST_METHOD(TestOperatorMinusWithIntegerNotInSet)
 		{
 			std::vector<int> numbers1 = { 1, 2, 3, 4, 5, 8, 9 };
-			Set set1(numbers1);
-			Set set2 = set1 - 6;
+			Set<int>set1(numbers1);
+			Set<int>set2 = set1 - 6;
 			Assert::AreEqual(set2.count(), (size_t)7);
 			Assert::IsFalse(set2.isEmpty());
 			Assert::IsTrue(set2.isInSet(8));
@@ -217,9 +217,9 @@ namespace SetLibTest
 		TEST_METHOD(TestOperatorAdditionAssignmentWithSetNormal)
 		{
 			std::vector<int> numbers1 = { 1, 2, 3, 4, 5, 8, 9 };
-			Set set1(numbers1);
+			Set<int>set1(numbers1);
 			std::vector<int> numbers2 = { 6, 7 };
-			Set set2(numbers2);
+			Set<int>set2(numbers2);
 			set1 += set2;
 			Assert::AreEqual(set1.count(), (size_t)9);
 			Assert::IsTrue(set1.isInSet(3));
@@ -229,9 +229,9 @@ namespace SetLibTest
 		TEST_METHOD(TestOperatorAdditionAssignmentWithSetCommonElements)
 		{
 			std::vector<int> numbers1 = { 1, 2, 3, 4, 5, 8, 9 };
-			Set set1(numbers1);
+			Set<int>set1(numbers1);
 			std::vector<int> numbers2 = { 1, 3, 5 };
-			Set set2(numbers2);
+			Set<int>set2(numbers2);
 			set1 += set2;
 			Assert::AreEqual(set1.count(), (size_t)7);
 			Assert::IsTrue(set1.isInSet(3));
@@ -242,9 +242,9 @@ namespace SetLibTest
 		TEST_METHOD(TestOperatorAdditionAssignmentWithSetNotUniqueElements)
 		{
 			std::vector<int> numbers1 = { 1, 2, 3, 4, 5, 8, 9 };
-			Set set1(numbers1);
+			Set<int>set1(numbers1);
 			std::vector<int> numbers2 = { 1, 3, 5, 6, 7 };
-			Set set2(numbers2);
+			Set<int>set2(numbers2);
 			set1 += set2;
 			Assert::AreEqual(set1.count(), (size_t)9);
 			Assert::IsTrue(set1.isInSet(3));
@@ -255,8 +255,8 @@ namespace SetLibTest
 		TEST_METHOD(TestOperatorAdditionAssignmentWithEmptySet)
 		{
 			std::vector<int> numbers1 = { 1, 2, 3, 4, 5, 8, 9 };
-			Set set1(numbers1);
-			Set set2;
+			Set<int>set1(numbers1);
+			Set<int>set2;
 			set1 += set2;
 			Assert::AreEqual(set1.count(), (size_t)7);
 			Assert::IsTrue(set1.isInSet(3));
@@ -267,9 +267,9 @@ namespace SetLibTest
 		TEST_METHOD(TestOperatorSubstractionAssignmentNormal)
 		{
 			std::vector<int> numbers1 = { 1, 2, 3, 4, 5, 8, 9 };
-			Set set1(numbers1);
+			Set<int>set1(numbers1);
 			std::vector<int> numbers2 = { 1, 3, 5 };
-			Set set2(numbers2);
+			Set<int>set2(numbers2);
 			set1 -= set2;
 			Assert::AreEqual(set1.count(), (size_t)4);
 			Assert::IsTrue(set1.isInSet(2));
@@ -281,9 +281,9 @@ namespace SetLibTest
 		TEST_METHOD(TestOperatorSubstractionAssignmentWithCommonElements)
 		{
 			std::vector<int> numbers1 = { 1, 2, 3, 4, 5, 8, 9 };
-			Set set1(numbers1);
+			Set<int>set1(numbers1);
 			std::vector<int> numbers2 = { 1, 3, 5, 6, 7 };
-			Set set2(numbers2);
+			Set<int>set2(numbers2);
 			set1 -= set2;
 			Assert::AreEqual(set1.count(), (size_t)4);
 			Assert::IsTrue(set1.isInSet(2));
@@ -297,8 +297,8 @@ namespace SetLibTest
 		TEST_METHOD(TestOperatorSubstractionAssignmentWithEmptySet)
 		{
 			std::vector<int> numbers1 = { 1, 2, 3, 4 };
-			Set set1(numbers1);
-			Set set2;
+			Set<int>set1(numbers1);
+			Set<int>set2;
 			set1 -= set2;
 			Assert::AreEqual(set1.count(), (size_t)4);
 			Assert::IsTrue(set1.isInSet(1));
@@ -312,9 +312,9 @@ namespace SetLibTest
 		TEST_METHOD(TestOperatorSubstractionAssignmentWithNotCommon)
 		{
 			std::vector<int> numbers1 = { 1, 2, 3, 4 };
-			Set set1(numbers1);
+			Set<int>set1(numbers1);
 			std::vector<int> numbers2 = { 5, 7, 9 };
-			Set set2(numbers2);
+			Set<int>set2(numbers2);
 			set1 -= set2;
 			Assert::AreEqual(set1.count(), (size_t)4);
 			Assert::IsTrue(set1.isInSet(1));
@@ -328,7 +328,7 @@ namespace SetLibTest
 		TEST_METHOD(TestOperatorSubstractionAssignmentWithPresentIneger)
 		{
 			std::vector<int> numbers1 = { 1, 2, 3, 4 };
-			Set set1(numbers1);
+			Set<int>set1(numbers1);
 			set1 -= 4;
 			Assert::AreEqual(set1.count(), (size_t)3);
 			Assert::IsTrue(set1.isInSet(1));
@@ -341,7 +341,7 @@ namespace SetLibTest
 		TEST_METHOD(TestOperatorSubstractionAssignmentWithNotPresentInteger)
 		{
 			std::vector<int> numbers1 = { 1, 2, 3, 4 };
-			Set set1(numbers1);
+			Set<int>set1(numbers1);
 			set1 -= 6;
 			Assert::AreEqual(set1.count(), (size_t)4);
 			Assert::IsTrue(set1.isInSet(1));
@@ -354,10 +354,10 @@ namespace SetLibTest
 		TEST_METHOD(TestIntersectionNormal)
 		{
 			std::vector<int> numbers1 = { 1, 2, 3, 4, 7, 9 };
-			Set set1(numbers1);
+			Set<int>set1(numbers1);
 			std::vector<int> numbers2 = { 1, 5, 8, 9 };
-			Set set2(numbers2);
-			Set set3 = set1 * set2;
+			Set<int>set2(numbers2);
+			Set<int>set3 = set1 * set2;
 			Assert::AreEqual(set3.count(), (size_t)2);
 			Assert::IsFalse(set3.isEmpty());
 			Assert::IsTrue(set3.isInSet(1));
@@ -368,9 +368,9 @@ namespace SetLibTest
 		TEST_METHOD(TestIntersectionEmptySet)
 		{
 			std::vector<int> numbers1 = { 1, 2, 3, 4, 7, 9 };
-			Set set1(numbers1);
-			Set set2;
-			Set set3 = set1 * set2;
+			Set<int>set1(numbers1);
+			Set<int>set2;
+			Set<int>set3 = set1 * set2;
 			Assert::AreEqual(set3.count(), (size_t)0);
 			Assert::IsTrue(set3.isEmpty());
 			Assert::IsFalse(set3.isInSet(1));
@@ -380,9 +380,9 @@ namespace SetLibTest
 		}
 		TEST_METHOD(TestIntersectionEmptySets)
 		{
-			Set set1;
-			Set set2;
-			Set set3 = set1 * set2;
+			Set<int>set1;
+			Set<int>set2;
+			Set<int>set3 = set1 * set2;
 			Assert::AreEqual(set3.count(), (size_t)0);
 			Assert::IsTrue(set3.isEmpty());
 			Assert::IsFalse(set3.isInSet(1));
@@ -393,7 +393,7 @@ namespace SetLibTest
 
 		TEST_METHOD(TestIsInSetTrue)
 		{
-			Set testSet;
+			Set<int>testSet;
 			testSet += 5;
 			testSet += 7;
 			Assert::IsTrue(testSet.isInSet(5));
@@ -401,7 +401,7 @@ namespace SetLibTest
 		}
 		TEST_METHOD(TestIsInSetFalse)
 		{
-			Set testSet;
+			Set<int>testSet;
 			testSet += 5;
 			testSet += 7;
 			Assert::IsFalse(testSet.isInSet(9));
@@ -409,23 +409,23 @@ namespace SetLibTest
 		}
 		TEST_METHOD(TestIsEmptyTrue)
 		{
-			Set testSet;
+			Set<int>testSet;
 			Assert::IsTrue(testSet.isEmpty());
 		}
 		TEST_METHOD(TestIsEmptyFalse)
 		{
-			Set testSet;
+			Set<int>testSet;
 			testSet += 9;
 			Assert::IsFalse(testSet.isEmpty());
 		}
 		TEST_METHOD(TestCountEmptySet)
 		{
-			Set set1;
+			Set<int>set1;
 			Assert::AreEqual(set1.count(), (size_t)0);
 		}
 		TEST_METHOD(TestCountNotEmptySet)
 		{
-			Set set1;
+			Set<int>set1;
 			set1 += 6;
 			set1 += 9;
 			Assert::AreEqual(set1.count(), (size_t)2);
@@ -433,7 +433,7 @@ namespace SetLibTest
 		TEST_METHOD(TestInsertionOperatorEmptySet)
 		{
 			std::stringstream out;
-			Set testSet;
+			Set<int>testSet;
 			out << testSet;
 			if (out.str() == "{}")
 			{
@@ -446,7 +446,7 @@ namespace SetLibTest
 		TEST_METHOD(TestInsertionOperatorNotEmpty)
 		{
 			std::vector<int> numbers = { 1, 2, 19 };
-			Set set1(numbers);
+			Set<int>set1(numbers);
 			std::stringstream out;
 			out << set1;
 			Assert::AreEqual(out.str().length(), (size_t)10);
