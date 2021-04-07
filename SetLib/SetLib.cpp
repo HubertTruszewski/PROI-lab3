@@ -144,21 +144,20 @@ size_t Set::count() const noexcept
 std::ostream& operator<<(std::ostream& stream, Set const& s)
 {
 	
-	std::cout << "{";
+	stream << "{";
 	if (!s.isEmpty())
 	{
 		std::vector<int> elements = s.getElements();
 		int last_element = elements.back();
 		for (auto i : elements)
 		{
-			std::cout << i;
+			stream << i;
 			if (i != last_element)
 			{
-				std::cout << ", ";
+				stream << ", ";
 			}
-		}
-		std::cout << "}" << std::endl;
-
-		return stream;
+		}	
 	}
+	stream << "}";
+	return stream;
 }
