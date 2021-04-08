@@ -46,12 +46,10 @@ public:
 		Set<T> resultSet;
 		for (auto i : this->container)
 		{
-			//if (!resultSet.isInSet(i)) resultSet += i;
 			resultSet += i;
 		}
 		for (auto i : s.getElements())
 		{
-			//if (!resultSet.isInSet(i)) resultSet += i;
 			resultSet += i;
 		}
 		return resultSet;
