@@ -185,12 +185,11 @@ namespace std
 	{
 		size_t operator()(Set<T> const& s) const noexcept
 		{
-			int sum = 0;
+			size_t sum_hash = 0;
 			for (auto i : s.getElements())
 			{
-				sum += i;
+				sum_hash += pow(std::hash<T>{}(i) , 3);
 			}
-			size_t sum_hash = std::hash<T>{}(sum);
 			size_t count_hash = std::hash<T>{}(s.count());
 			return sum_hash ^ count_hash;
 		}
