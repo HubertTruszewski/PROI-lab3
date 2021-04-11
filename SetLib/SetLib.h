@@ -117,6 +117,21 @@ public:
 		return resultSet;
 	}
 
+	bool operator==(Set<T> const& s) const noexcept
+	{
+		if (this->count() != s.count()) return false;
+		for (auto i : this->container)
+		{
+			if (!s.isInSet(i)) return false;
+		}
+		return true;
+	}
+
+	bool operator!=(Set<T> const& s) const noexcept
+	{
+		return !(*this == s);
+	}
+
 	Set<T> complement(Set<T> const& s) const
 	{
 		Set<T> resultSet;
@@ -186,7 +201,7 @@ namespace std
 			size_t sum_hash = 0;
 			for (auto i : s.getElements())
 			{
-				sum_hash += pow(std::hash<T>{}(i) , 3);
+				sum_hash += (size_t) pow(std::hash<T>{}(i) , 3);
 			}
 			size_t count_hash = std::hash<T>{}(s.count());
 			return sum_hash ^ count_hash;

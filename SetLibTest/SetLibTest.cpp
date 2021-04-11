@@ -446,6 +446,38 @@ namespace SetLibTest
 			out << set1;
 			Assert::AreEqual(out.str().length(), (size_t)10);
 		}
+		TEST_METHOD(TestEqual1)
+		{
+			std::vector<int> numbers1 = { 1, 2, 3, 4 };
+			Set<int> set1(numbers1);
+			std::vector<int> numbers2 = { 2, 4, 3, 1, 1, 3, 4};
+			Set<int> set2(numbers2);
+			Assert::IsTrue(set1 == set2);
+		}
+		TEST_METHOD(TestEqual2)
+		{
+			std::vector<int> numbers1 = { 1, 2, 3, 4, 5 };
+			Set<int> set1(numbers1);
+			std::vector<int> numbers2 = { 2, 4, 3, 1, 4, 3 };
+			Set<int> set2(numbers2);
+			Assert::IsFalse(set1 == set2);
+		}
+		TEST_METHOD(TestNotEqual1)
+		{
+			std::vector<int> numbers1 = { 1, 2, 3, 4, 5 };
+			Set<int> set1(numbers1);
+			std::vector<int> numbers2 = { 2, 4, 3, 1 };
+			Set<int> set2(numbers2);
+			Assert::IsTrue(set1 != set2);
+		}
+		TEST_METHOD(TestNotEqual2)
+		{
+			std::vector<int> numbers1 = { 4, 2, 3, 1 };
+			Set<int> set1(numbers1);
+			std::vector<int> numbers2 = { 2, 4, 3, 1 };
+			Set<int> set2(numbers2);
+			Assert::IsFalse(set1 != set2);
+		}
 		TEST_METHOD(TestComplementSetNormal)
 		{
 			std::vector<int> numbers1 = { 1, 2, 3, 4 };
