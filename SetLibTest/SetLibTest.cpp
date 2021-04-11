@@ -436,13 +436,7 @@ namespace SetLibTest
 			std::stringstream out;
 			Set<int>testSet;
 			out << testSet;
-			if (out.str() == "{}")
-			{
-				Assert::IsTrue(1);
-			}
-			else {
-				Assert::Fail();
-			}
+			Assert::AreEqual(out.str(), (std::string)"{}");
 		}
 		TEST_METHOD(TestInsertionOperatorNotEmpty)
 		{
@@ -476,7 +470,7 @@ namespace SetLibTest
 				set2.complement(set1);
 				Assert::Fail();
 			}
-			catch (...)
+			catch (std::domain_error)
 			{
 				Assert::IsTrue(true);
 			}
